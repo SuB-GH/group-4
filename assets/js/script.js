@@ -1,5 +1,6 @@
 // Form info capture
 var citySearchEl = document.querySelector("#city-search");
+var cityHistoryEl = document.querySelector(".city-history")
 var cityNameEl = document.querySelector("#city-name");
 var cityNameHistory = [];
 var cityName
@@ -10,10 +11,11 @@ var getWeatherData = function (issLat, issLon) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
-                console.log(data.daily[0].clouds, "Clouds");
-                console.log(data.daily[0].rain, "Rain");
-                console.log(data.daily[0].weather[0].description, "Description");
+                //console.log(data);
+                //console.log(data.daily[0].clouds, "Clouds");
+                //console.log(data.daily[0].rain, "Rain");
+                //console.log(data.daily[0].weather[0].description, "Description");
+                //console.log(data.hourly[0]);
             });
         }
     });
@@ -26,7 +28,7 @@ var getCity = function (city) {
     fetch(requestUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
+                //console.log(data);
 
                 // Lat & Lon variables:
                 newLat = data[0].lat;
@@ -48,9 +50,9 @@ var getISS = function (newLat, newLon) {
     fetch(issRequestUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
-                console.log(data.lat, "Lat");
-                console.log(data.lon, "Lon");
+                //console.log(data);
+                //console.log(data.lat, "Lat");
+                //console.log(data.lon, "Lon");
                 issLat = data.latitude;
                 issLon = data.longitude;
 
@@ -59,7 +61,7 @@ var getISS = function (newLat, newLon) {
                 fetch(issRequestUrl).then(function (response) {
                     if (response.ok) {
                         response.json().then(function (data) {
-                            console.log(data);
+                            //console.log(data);
                         })
                     }
                 })
@@ -83,10 +85,34 @@ var formSubmitHandler = function (event) {
 
         // call getCity function
         getCity(cityName);
+        saveCityIss();
 
         cityNameEl.value = "";
     }
 };
 
+var saveCityIss = function(){
+    var saveCity = document.querySelector("#city-name").value;
+   console.log(saveCity);
+   if (localStorage.getItem("city")==null){
+       localStorage.setItem("city", "[]")
+   }
+   var pastCity = JSON.parse(localStorage.getItem("city"))
+   pastCity.push(saveCity);
+   localStorage.setItem("city", JSON.stringify(pastCity));
+
+var saveButton = document.createElement("button");
+saveButton.classList.add("save-btn");
+saveButton.textContent = saveCity
+cityHistoryEl.appendChild(saveButton);
+saveButton.onclick = clickButton
+};
+
+function clickButton(event){
+    event.preventDefault;
+    var cityClicked = event.target
+    //currentCity.textContent = ""
+    getCityLocation(cityClicked.textContent);
+}
 // Event listener
 citySearchEl.addEventListener("submit", formSubmitHandler);
