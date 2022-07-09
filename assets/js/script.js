@@ -40,8 +40,10 @@ var getCity = function (city) {
 
 // API call for ISS position
 var getISS = function (newLat, newLon) {
-    //             // API url
-    var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25544/" + newLat + "/" + newLon + ".json";
+    // API url
+    // NOAA 15 fetch request
+
+    var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25338/" + newLat + "/" + newLon + ".json";
 
     fetch(issRequestUrl).then(function (response) {
         if (response.ok) {
@@ -51,6 +53,16 @@ var getISS = function (newLat, newLon) {
                 console.log(data.lon, "Lon");
                 issLat = data.latitude;
                 issLon = data.longitude;
+
+                // ISS fetch request
+                var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25544/" + newLat + "/" + newLon + ".json";
+                fetch(issRequestUrl).then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (data) {
+                            console.log(data);
+                        })
+                    }
+                })
             })
         }
     })
