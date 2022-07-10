@@ -1,26 +1,55 @@
 <!DOCTYPE html>
-<html lang ="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-        <title>Group Project 1 - Weather & ISS Tracking</title>
-    </head>
-    <body>
-        <div  class="columns is-one-quarter is-multiline is-centered">
-        <header class="column is-narrow block">
-            <h1>Find the ISS and check your local weather!</h1>
-        
-        </header>
-        <form class="column is-6 block city-search" id="city-search">
-            <input name="city-name" id="city-name" type="text" placeholder="Enter City Name">
-            <button class="button is-primary is-outlined is-small" type="submit">Submit</button>
-        </form>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Group Project 1 - Weather & ISS Tracking</title>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="py-6 has-text-white has-text-centered is-size-1 has-text-weight-bold">App Name Goes Here!
+        </h1>
+
+    </header>
+
+    <h2 class="container py-4 has text-primary has-text-centered is-size-4 has-text-weight-bold">Can you see the
+        International Space Station from your location?</h2>
+
+
+
+    <div class="columns is-hcentered">
+        <div class="column is-two-thirds py-8">
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum consectetur, vero ullam, minima
+                cupiditate
+                fugit delectus possimus est quos quibusdam accusantium inventore, deserunt quo temporibus maiores id
+                iste
+                amet fuga?
+            </p>
+        </div>
+        <div class="column py-4">
+            <form class="city-search" id="city-search">
+                Enter your zip code to find out Find the ISS and check your local weather!
+                <input name="city-name" id="city-name" type="text" placeholder="Enter City Name">
+                <button type="city-submit">Submit</button>
+            </form>
         </div>
 
+    </div>
+    <div class ="city-history">
+        <h2>City Serch History</h2>
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
-        <script src = "./assets/js/script.js"></script>
-    </body>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
