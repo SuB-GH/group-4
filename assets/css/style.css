@@ -1,0 +1,12 @@
+* {
+    font-family:'Courier New', Courier, monospace;
+    
+}
+
+body {
+    background-color:rgb(168, 213, 168);
+}
+
+header {
+    background: linear-gradient(rgb(131, 131, 196), rgb(168, 213, 168));
+}
