@@ -22,14 +22,17 @@ var spacePic = function(){
 var displaySpacePic = function(data){
 //Pic Title
 var spacePicTitle = document.createElement("h3");
+spacePicTitle.className = "has-text-weight-bold"
 var picTitle = data.title;
 spacePicTitle.textContent = picTitle;
 spacePicEl.appendChild(spacePicTitle);
 
 //pic
 var spacePicture = document.createElement("img");
+spacePicture.className = "block";
 spacePicture.src = data.url;
 spacePicEl.appendChild(spacePicture);
+
 
 //Pic Explanation
 var picExpl = document.createElement("p");
@@ -137,6 +140,7 @@ var saveCityIss = function(){
    localStorage.setItem("city", JSON.stringify(pastCity));
 
 var saveButton = document.createElement("button");
+saveButton.className = "button is-info is-outlined"
 saveButton.classList.add("save-btn");
 saveButton.textContent = saveCity
 cityHistoryEl.appendChild(saveButton);
