@@ -3,10 +3,12 @@
     
 }
 
-body {
-    background-color:rgb(168, 213, 168);
-}
+body{
+    background-image: url(../css/images/night-sky.gif);
+        background-size: cover;
+        background-attachment: fixed;
+        height: 100%;
+        width: 100%;
+   
 
-header {
-    background: linear-gradient(rgb(131, 131, 196), rgb(168, 213, 168));
 }
