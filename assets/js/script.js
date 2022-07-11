@@ -2,8 +2,42 @@
 var citySearchEl = document.querySelector("#city-search");
 var cityHistoryEl = document.querySelector(".city-history")
 var cityNameEl = document.querySelector("#city-name");
+var spacePicEl = document.querySelector(".space-pic");
 var cityNameHistory = [];
 var cityName
+
+//get daily space pic
+var spacePic = function(){
+    var apodApi ="https://api.nasa.gov/planetary/apod?api_key=4f45z6DWkT3kechMmIC6j67dikmCTKC67zr0ZRYS";
+    fetch(apodApi).then(function(response){
+        if(response.ok){
+            response.json().then(function(data){
+                console.log(data)
+                displaySpacePic(data);
+            });
+        }
+    });
+};
+
+var displaySpacePic = function(data){
+//Pic Title
+var spacePicTitle = document.createElement("h3");
+var picTitle = data.title;
+spacePicTitle.textContent = picTitle;
+spacePicEl.appendChild(spacePicTitle);
+
+//pic
+var spacePicture = document.createElement("img");
+spacePicture.src = data.url;
+spacePicEl.appendChild(spacePicture);
+
+//Pic Explanation
+var picExpl = document.createElement("p");
+var spacePicEx = data.explanation;
+picExpl.textContent = spacePicEx;
+spacePicEl.appendChild(picExpl);
+
+};
 
 //get the weather for a city
 var getWeatherData = function (issLat, issLon) {
@@ -11,7 +45,7 @@ var getWeatherData = function (issLat, issLon) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                //console.log(data);
+                console.log(data);
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
@@ -35,6 +69,7 @@ var getCity = function (city) {
                 newLon = data[0].lon;
                 getISS(newLat, newLon);
                 getWeatherData(newLat, newLon);
+                spacePic();
             })
         }
     })
@@ -113,6 +148,6 @@ function clickButton(event){
     var cityClicked = event.target
     //currentCity.textContent = ""
     getCityLocation(cityClicked.textContent);
-}
+};
 // Event listener
 citySearchEl.addEventListener("submit", formSubmitHandler);
