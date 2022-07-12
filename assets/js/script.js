@@ -4,6 +4,8 @@ var cityHistoryEl = document.querySelector(".city-history")
 var cityNameEl = document.querySelector("#city-name");
 var spacePicEl = document.querySelector(".space-pic");
 var hourlyWeatherEl = document.querySelector(".hourly-weather");
+var satelliteInfoEl = document.querySelector(".noaa15-info");
+var issInfoEl = document.querySelector(".iss-info");
 var cityNameHistory = [];
 var cityName
 
@@ -136,6 +138,12 @@ var getISS = function (newLat, newLon) {
                     // console.log(passStartNOAA);
                     datePassStartNOAA = passStartNOAA.split("T");
                     console.log(datePassStartNOAA, "Date", "Time");
+                    
+                    var satelliteData = datePassStartNOAA;
+                    var satelliteDataEl = document.createElement("h2");
+                    satelliteDataEl.textContent = "Date: " + satelliteData[0] + " Time: " + satelliteData[1].slice(0, 5);
+                    satelliteInfoEl.appendChild(satelliteDataEl);
+
                 }
             })
         }
@@ -155,6 +163,11 @@ var getISS = function (newLat, newLon) {
                     // console.log(passStartISS);
                     datePassStartISS = passStartISS.split("T");
                     console.log(datePassStartISS, "Date", "Time");
+
+                    var issData = datePassStartISS;
+                    var issDataEl = document.createElement("h2");
+                    issDataEl.textContent = "Date: " + issData[0] + " Time: " + issData[1].slice(0, 5);
+                    issInfoEl.appendChild(issDataEl);
                 }
             })
         }
