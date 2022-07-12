@@ -30,11 +30,11 @@ var displaySpacePic = function (data) {
     spacePicTitle.textContent = picTitle;
     spacePicEl.appendChild(spacePicTitle);
 
-//pic
-var spacePicture = document.createElement("img");
-spacePicture.className = "block image";
-spacePicture.src = data.url;
-spacePicEl.appendChild(spacePicture);
+    //pic
+    var spacePicture = document.createElement("img");
+    spacePicture.className = "block image";
+    spacePicture.src = data.url;
+    spacePicEl.appendChild(spacePicture);
 
 
     //Pic Explanation
@@ -52,11 +52,32 @@ var getWeatherData = function (issLat, issLon, city) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                var hourlyClouds = data.hourly[0].clouds
+                //Icon
+                var hourlyIconEl = document.createElement("img");
+                var hourlyIcon = data.hourly[0].weather[0].icon;
+                hourlyIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + hourlyIcon + "@2x.png");
+                hourlyWeatherEl.appendChild(hourlyIconEl);
+                //weather description
+                var hourlyDescription = data.hourly[0].weather[0].description;
+                var hourlyDescriptionEl = document.createElement("p");
+                hourlyDescriptionEl.textContent = hourlyDescription;
+                hourlyWeatherEl.appendChild(hourlyDescriptionEl);
+                //clouds
+                var hourlyClouds = data.hourly[0].clouds;
                 var hourlyCloudsEl = document.createElement("p");
-                hourlyCloudsEl.textContent = "cloud coverage:" + hourlyClouds;
-                hourlyWeatherEl.appendChild(hourlyCloudsEl)
-                // console.log(data);
+                hourlyCloudsEl.textContent = "Cloud Coverage: " + hourlyClouds + "%";
+                hourlyWeatherEl.appendChild(hourlyCloudsEl);
+                //temp
+                var hourlyTemp = data.hourly[0].temp;
+                var hourlyTempEl = document.createElement("p");
+                hourlyTempEl.textContent = "Temperature: " + hourlyTemp + "°F";
+                hourlyWeatherEl.appendChild(hourlyTempEl);
+                //Visibility
+                var hourlyVisibility = data.hourly[0].visibility;
+                var hourlyVisibilityEl = document.createElement("p");
+                hourlyVisibilityEl.textContent = "Visibility: " + hourlyVisibility + " Meters";
+                hourlyWeatherEl.appendChild(hourlyVisibilityEl);
+                console.log(data);
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
@@ -66,6 +87,7 @@ var getWeatherData = function (issLat, issLon, city) {
             });
         }
     });
+
 };
 // find Lat / Lon from city input
 var getCity = function (city) {
