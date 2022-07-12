@@ -4,7 +4,7 @@ var cityHistoryEl = document.querySelector(".city-history")
 var cityNameEl = document.querySelector("#city-name");
 var spacePicEl = document.querySelector(".space-pic");
 var hourlyWeatherEl = document.querySelector(".hourly-weather");
-var satelliteInfoEl = document.querySelector(".noaa15-info");
+// var satelliteInfoEl = document.querySelector(".noaa15-info");
 var issInfoEl = document.querySelector(".iss-info");
 var cityNameHistory = [];
 var cityName
@@ -30,11 +30,11 @@ var displaySpacePic = function (data) {
     spacePicTitle.textContent = picTitle;
     spacePicEl.appendChild(spacePicTitle);
 
-//pic
-var spacePicture = document.createElement("img");
-spacePicture.className = "block image";
-spacePicture.src = data.url;
-spacePicEl.appendChild(spacePicture);
+    //pic
+    var spacePicture = document.createElement("img");
+    spacePicture.className = "block image";
+    spacePicture.src = data.url;
+    spacePicEl.appendChild(spacePicture);
 
 
     //Pic Explanation
@@ -52,11 +52,32 @@ var getWeatherData = function (issLat, issLon, city) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                var hourlyClouds = data.hourly[0].clouds
+                //Icon
+                var hourlyIconEl = document.createElement("img");
+                var hourlyIcon = data.hourly[0].weather[0].icon;
+                hourlyIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + hourlyIcon + "@2x.png");
+                hourlyWeatherEl.appendChild(hourlyIconEl);
+                //weather description
+                var hourlyDescription = data.hourly[0].weather[0].description;
+                var hourlyDescriptionEl = document.createElement("p");
+                hourlyDescriptionEl.textContent = hourlyDescription;
+                hourlyWeatherEl.appendChild(hourlyDescriptionEl);
+                //clouds
+                var hourlyClouds = data.hourly[0].clouds;
                 var hourlyCloudsEl = document.createElement("p");
-                hourlyCloudsEl.textContent = "cloud coverage:" + hourlyClouds;
-                hourlyWeatherEl.appendChild(hourlyCloudsEl)
-                // console.log(data);
+                hourlyCloudsEl.textContent = "Cloud Coverage: " + hourlyClouds + "%";
+                hourlyWeatherEl.appendChild(hourlyCloudsEl);
+                //temp
+                var hourlyTemp = data.hourly[0].temp;
+                var hourlyTempEl = document.createElement("p");
+                hourlyTempEl.textContent = "Temperature: " + hourlyTemp + "°F";
+                hourlyWeatherEl.appendChild(hourlyTempEl);
+                //Visibility
+                var hourlyVisibility = data.hourly[0].visibility;
+                var hourlyVisibilityEl = document.createElement("p");
+                hourlyVisibilityEl.textContent = "Visibility: " + hourlyVisibility + " Meters";
+                hourlyWeatherEl.appendChild(hourlyVisibilityEl);
+                console.log(data);
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
@@ -66,6 +87,7 @@ var getWeatherData = function (issLat, issLon, city) {
             });
         }
     });
+
 };
 // find Lat / Lon from city input
 var getCity = function (city) {
@@ -100,32 +122,32 @@ var getISS = function (newLat, newLon) {
     // API url
     // NOAA 15 fetch request
 
-    var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25338/" + newLat + "/" + newLon + ".json";
+    // var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25338/" + newLat + "/" + newLon + ".json";
 
-    fetch(issRequestUrl).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                console.log(data.satellite_name);
-                //console.log(data.lat, "Lat");
-                //console.log(data.lon, "Lon");
-                issLat = data.latitude;
-                issLon = data.longitude;
-                for (var i = 0; i < data.passes.length; i++) {
-                    // console.log(data.passes[i]);
-                    passStartNOAA = data.passes[i].start;
-                    // console.log(passStartNOAA);
-                    datePassStartNOAA = passStartNOAA.split("T");
-                    console.log(datePassStartNOAA, "Date", "Time");
+    // fetch(issRequestUrl).then(function (response) {
+    //     if (response.ok) {
+    //         response.json().then(function (data) {
+    //             console.log(data.satellite_name);
+    //             //console.log(data.lat, "Lat");
+    //             //console.log(data.lon, "Lon");
+    //             issLat = data.latitude;
+    //             issLon = data.longitude;
+    //             for (var i = 0; i < data.passes.length; i++) {
+    //                 // console.log(data.passes[i]);
+    //                 passStartNOAA = data.passes[i].start;
+    //                 // console.log(passStartNOAA);
+    //                 datePassStartNOAA = passStartNOAA.split("T");
+    //                 console.log(datePassStartNOAA, "Date", "Time");
                     
-                    var satelliteData = datePassStartNOAA;
-                    var satelliteDataEl = document.createElement("h2");
-                    satelliteDataEl.textContent = "Date: " + satelliteData[0] + " Time: " + satelliteData[1].slice(0, 5);
-                    satelliteInfoEl.appendChild(satelliteDataEl);
+    //                 var satelliteData = datePassStartNOAA;
+    //                 var satelliteDataEl = document.createElement("h2");
+    //                 satelliteDataEl.textContent = "Date: " + satelliteData[0] + " Time: " + satelliteData[1].slice(0, 5);
+    //                 satelliteInfoEl.appendChild(satelliteDataEl);
 
-                }
-            })
-        }
-    })
+    //             }
+    //         })
+    //     }
+    // })
 
 
 
@@ -135,6 +157,8 @@ var getISS = function (newLat, newLon) {
         if (response.ok) {
             response.json().then(function (data) {
                 console.log(data.satellite_name);
+                issLat = data.latitude;
+                issLon - data.longitude;
                 for (var i = 0; i < data.passes.length; i++) {
                     // console.log(data.passes[i]);
                     passStartISS = data.passes[i].start;
