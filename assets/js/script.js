@@ -28,11 +28,11 @@ var displaySpacePic = function (data) {
     spacePicTitle.textContent = picTitle;
     spacePicEl.appendChild(spacePicTitle);
 
-    //pic
-    var spacePicture = document.createElement("img");
-    spacePicture.className = "block";
-    spacePicture.src = data.url;
-    spacePicEl.appendChild(spacePicture);
+//pic
+var spacePicture = document.createElement("img");
+spacePicture.className = "block image";
+spacePicture.src = data.url;
+spacePicEl.appendChild(spacePicture);
 
 
     //Pic Explanation
