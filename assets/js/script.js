@@ -52,15 +52,11 @@ var getWeatherData = function (issLat, issLon, city) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-<<<<<<< HEAD
-                 // console.log(data);
-=======
                 var hourlyClouds = data.hourly[0].clouds
                 var hourlyCloudsEl = document.createElement("p");
                 hourlyCloudsEl.textContent = "cloud coverage:" + hourlyClouds;
                 hourlyWeatherEl.appendChild(hourlyCloudsEl)
                 // console.log(data);
->>>>>>> d4abbdd864f9ccd911bda59ba95d4b2954060a72
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
