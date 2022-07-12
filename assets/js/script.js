@@ -4,7 +4,7 @@ var cityHistoryEl = document.querySelector(".city-history")
 var cityNameEl = document.querySelector("#city-name");
 var spacePicEl = document.querySelector(".space-pic");
 var hourlyWeatherEl = document.querySelector(".hourly-weather");
-var satelliteInfoEl = document.querySelector(".noaa15-info");
+// var satelliteInfoEl = document.querySelector(".noaa15-info");
 var issInfoEl = document.querySelector(".iss-info");
 var cityNameHistory = [];
 var cityName
@@ -122,32 +122,32 @@ var getISS = function (newLat, newLon) {
     // API url
     // NOAA 15 fetch request
 
-    var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25338/" + newLat + "/" + newLon + ".json";
+    // var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25338/" + newLat + "/" + newLon + ".json";
 
-    fetch(issRequestUrl).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                console.log(data.satellite_name);
-                //console.log(data.lat, "Lat");
-                //console.log(data.lon, "Lon");
-                issLat = data.latitude;
-                issLon = data.longitude;
-                for (var i = 0; i < data.passes.length; i++) {
-                    // console.log(data.passes[i]);
-                    passStartNOAA = data.passes[i].start;
-                    // console.log(passStartNOAA);
-                    datePassStartNOAA = passStartNOAA.split("T");
-                    console.log(datePassStartNOAA, "Date", "Time");
+    // fetch(issRequestUrl).then(function (response) {
+    //     if (response.ok) {
+    //         response.json().then(function (data) {
+    //             console.log(data.satellite_name);
+    //             //console.log(data.lat, "Lat");
+    //             //console.log(data.lon, "Lon");
+    //             issLat = data.latitude;
+    //             issLon = data.longitude;
+    //             for (var i = 0; i < data.passes.length; i++) {
+    //                 // console.log(data.passes[i]);
+    //                 passStartNOAA = data.passes[i].start;
+    //                 // console.log(passStartNOAA);
+    //                 datePassStartNOAA = passStartNOAA.split("T");
+    //                 console.log(datePassStartNOAA, "Date", "Time");
                     
-                    var satelliteData = datePassStartNOAA;
-                    var satelliteDataEl = document.createElement("h2");
-                    satelliteDataEl.textContent = "Date: " + satelliteData[0] + " Time: " + satelliteData[1].slice(0, 5);
-                    satelliteInfoEl.appendChild(satelliteDataEl);
+    //                 var satelliteData = datePassStartNOAA;
+    //                 var satelliteDataEl = document.createElement("h2");
+    //                 satelliteDataEl.textContent = "Date: " + satelliteData[0] + " Time: " + satelliteData[1].slice(0, 5);
+    //                 satelliteInfoEl.appendChild(satelliteDataEl);
 
-                }
-            })
-        }
-    })
+    //             }
+    //         })
+    //     }
+    // })
 
 
 
@@ -157,6 +157,8 @@ var getISS = function (newLat, newLon) {
         if (response.ok) {
             response.json().then(function (data) {
                 console.log(data.satellite_name);
+                issLat = data.latitude;
+                issLon - data.longitude;
                 for (var i = 0; i < data.passes.length; i++) {
                     // console.log(data.passes[i]);
                     passStartISS = data.passes[i].start;
