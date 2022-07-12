@@ -13,12 +13,13 @@
 <body>
 
     <header>
-        <h1 class="py-6 has-text-white has-text-centered is-size-1 has-text-weight-bold">App Name Goes Here!
+        <h1 class="py-6 has-text-white has-text-centered is-size-1 has-text-weight-bold">Staring at the Stars
         </h1>
 
     </header>
 
-    <h2 class="container block has-text-info has-text-centered has-text-white is-size-4 has-text-weight-bold">Can you see the
+    <h2 class="container block has-text-info has-text-centered has-text-white is-size-4 has-text-weight-bold">Can you
+        see the
         International Space Station from your location?</h2>
 
 
@@ -36,42 +37,72 @@
     </div>
 
     <div class="columns is-centered has-text-white">
-        <form class="city-search" id="city-search">
+        <form class="city-search pb-4 pt-4" id="city-search">
             <p>Enter your city to check the location of the ISS and see your local weather!</p>
-            <input class="city-name input is-small is-rounded is-info" id="city-name" type="text" placeholder="Enter City Name">
-            <button class="button is-info is-outlined" type="city-submit">Submit</button>
+            <input class="city-name input is-small is-rounded is-info mb-4 mt-4" id="city-name" type="text"
+                placeholder="Enter City Name">
+            <button class="button is-info is-outlined mb-2 mt-2" type="city-submit">Submit</button>
         </form>
     </div>
 
-    <div class ="city-history has-text-white has-text-weight-bold pt-6">
-        <h2>City Search History</h2>
-    </div>
+    <section class="section mx-4">
+        <div class="columns">
+<!-- test w/o box
+            <div class="box is-size-6 has-text-black has-text-weight-bold">
+                <p>container 1 - this is a box</p>
+            </div>
+ -->
+            <div class="column is-one-quarter is-size-6 has-text-white has-text-weight-bold">
+                <p>container 2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum dignissimos vero
+                    eligendi facere, porro unde ea sequi repellat, quisquam culpa illum! Delectus rerum earum provident
+                    ad voluptatem. Sint, molestias provident!</p>
+
+            </div>
+
+            <div class="column is-one-quarter is-size-6 has-text-white has-text-weight-bold">
+                <p>container 3 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate voluptates modi ab
+                    impedit, distinctio nesciunt recusandae fugiat alias amet illo totam necessitatibus voluptate vitae,
+                    animi quasi harum ullam veritatis commodi?</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section mx-4">
+        <div class="city-history has-text-white has-text-weight-bold pt-6 is-size-4">
+            
+                <h2>City Search History</h2>
     
-    <div class="space-pic has-text-white">
-        <h2>Astronomy Picture of the Day</h2>
-
-    </div>
-
-    <div class="hourly-weather">
-
-
-
-    </div>
-
-    <!-- <div class="noaa15-info">
-        <div class="noaa15-data" id="noaa15-data">
-            <h2>NOAA-15 Passes:</h2>
         </div>
-        
+    </section>
 
-    </div> -->
-
-    <div class="iss-info">
-        <div class="iss-data" id="iss-data">
-            <h2>ISS Passes:</h2>
+    <section class="section">
+        <div class="space-pic has-text-white">
+            <div>
+                <h2>Astronomy Picture of the Day</h2>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <section class="section">
+        <div class="hourly-weather">
+
+        </div>
+
+        <div class="noaa15-info">
+            <div class="noaa15-data" id="noaa15-data">
+                <h2>NOAA-15 Passes:</h2>
+            </div>
+
+        </div>
+
+        <div class="iss-info">
+            <div class="iss-data" id="iss-data">
+                <h2>ISS Passes:</h2>
+            </div>
+        </div>
+
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
