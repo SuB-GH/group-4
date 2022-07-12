@@ -48,7 +48,7 @@ var getWeatherData = function (issLat, issLon) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                // console.log(data);
+                 // console.log(data);
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
