@@ -29,7 +29,7 @@ spacePicEl.appendChild(spacePicTitle);
 
 //pic
 var spacePicture = document.createElement("img");
-spacePicture.className = "block";
+spacePicture.className = "block image";
 spacePicture.src = data.url;
 spacePicEl.appendChild(spacePicture);
 
