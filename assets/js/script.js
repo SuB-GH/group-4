@@ -158,7 +158,7 @@ var getISS = function (newLat, newLon) {
             response.json().then(function (data) {
                 console.log(data.satellite_name);
                 issLat = data.latitude;
-                issLon - data.longitude;
+                issLon = data.longitude;
                 for (var i = 0; i < data.passes.length; i++) {
                     // console.log(data.passes[i]);
                     passStartISS = data.passes[i].start;
