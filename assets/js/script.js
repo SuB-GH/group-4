@@ -7,11 +7,11 @@ var cityNameHistory = [];
 var cityName
 
 //get daily space pic
-var spacePic = function(){
-    var apodApi ="https://api.nasa.gov/planetary/apod?api_key=4f45z6DWkT3kechMmIC6j67dikmCTKC67zr0ZRYS";
-    fetch(apodApi).then(function(response){
-        if(response.ok){
-            response.json().then(function(data){
+var spacePic = function () {
+    var apodApi = "https://api.nasa.gov/planetary/apod?api_key=4f45z6DWkT3kechMmIC6j67dikmCTKC67zr0ZRYS";
+    fetch(apodApi).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
                 console.log(data)
                 displaySpacePic(data);
             });
@@ -48,7 +48,7 @@ var getWeatherData = function (issLat, issLon) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
+                // console.log(data);
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
@@ -88,21 +88,37 @@ var getISS = function (newLat, newLon) {
     fetch(issRequestUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                //console.log(data);
+                console.log(data.satellite_name);
                 //console.log(data.lat, "Lat");
                 //console.log(data.lon, "Lon");
                 issLat = data.latitude;
                 issLon = data.longitude;
+                for (var i = 0; i < data.passes.length; i++) {
+                    // console.log(data.passes[i]);
+                    passStartNOAA = data.passes[i].start;
+                    // console.log(passStartNOAA);
+                    datePassStartNOAA = passStartNOAA.split("T");
+                    console.log(datePassStartNOAA, "Date", "Time");
+                }
+            })
+        }
+    })
 
-                // ISS fetch request
-                var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25544/" + newLat + "/" + newLon + ".json";
-                fetch(issRequestUrl).then(function (response) {
-                    if (response.ok) {
-                        response.json().then(function (data) {
-                            //console.log(data);
-                        })
-                    }
-                })
+
+
+    // ISS fetch request
+    var issRequestUrl = "https://api.g7vrd.co.uk/v1/satellite-passes/25544/" + newLat + "/" + newLon + ".json";
+    fetch(issRequestUrl).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                console.log(data.satellite_name);
+                for (var i = 0; i < data.passes.length; i++) {
+                    // console.log(data.passes[i]);
+                    passStartISS = data.passes[i].start;
+                    // console.log(passStartISS);
+                    datePassStartISS = passStartISS.split("T");
+                    console.log(datePassStartISS, "Date", "Time");
+                }
             })
         }
     })
@@ -129,15 +145,15 @@ var formSubmitHandler = function (event) {
     }
 };
 
-var saveCityIss = function(){
+var saveCityIss = function () {
     var saveCity = document.querySelector("#city-name").value;
-   console.log(saveCity);
-   if (localStorage.getItem("city")==null){
-       localStorage.setItem("city", "[]")
-   }
-   var pastCity = JSON.parse(localStorage.getItem("city"))
-   pastCity.push(saveCity);
-   localStorage.setItem("city", JSON.stringify(pastCity));
+    console.log(saveCity);
+    if (localStorage.getItem("city") == null) {
+        localStorage.setItem("city", "[]")
+    }
+    var pastCity = JSON.parse(localStorage.getItem("city"))
+    pastCity.push(saveCity);
+    localStorage.setItem("city", JSON.stringify(pastCity));
 
 var saveButton = document.createElement("button");
 saveButton.className = "button is-info is-outlined"
@@ -147,7 +163,7 @@ cityHistoryEl.appendChild(saveButton);
 saveButton.onclick = clickButton
 };
 
-function clickButton(event){
+function clickButton(event) {
     event.preventDefault;
     var cityClicked = event.target
     //currentCity.textContent = ""
