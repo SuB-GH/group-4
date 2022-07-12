@@ -3,6 +3,7 @@ var citySearchEl = document.querySelector("#city-search");
 var cityHistoryEl = document.querySelector(".city-history")
 var cityNameEl = document.querySelector("#city-name");
 var spacePicEl = document.querySelector(".space-pic");
+var hourlyWeatherEl = document.querySelector(".hourly-weather");
 var cityNameHistory = [];
 var cityName
 
@@ -19,40 +20,51 @@ var spacePic = function () {
     });
 };
 
-var displaySpacePic = function(data){
-//Pic Title
-var spacePicTitle = document.createElement("h3");
-spacePicTitle.className = "has-text-weight-bold"
-var picTitle = data.title;
-spacePicTitle.textContent = picTitle;
-spacePicEl.appendChild(spacePicTitle);
+var displaySpacePic = function (data) {
+    //Pic Title
+    var spacePicTitle = document.createElement("h3");
+    spacePicTitle.className = "has-text-weight-bold"
+    var picTitle = data.title;
+    spacePicTitle.textContent = picTitle;
+    spacePicEl.appendChild(spacePicTitle);
 
 //pic
 var spacePicture = document.createElement("img");
-spacePicture.className = "block";
+spacePicture.className = "block image";
 spacePicture.src = data.url;
 spacePicEl.appendChild(spacePicture);
 
 
-//Pic Explanation
-var picExpl = document.createElement("p");
-var spacePicEx = data.explanation;
-picExpl.textContent = spacePicEx;
-spacePicEl.appendChild(picExpl);
+    //Pic Explanation
+    var picExpl = document.createElement("p");
+    var spacePicEx = data.explanation;
+    picExpl.textContent = spacePicEx;
+    spacePicEl.appendChild(picExpl);
 
 };
+spacePic();
 
 //get the weather for a city
-var getWeatherData = function (issLat, issLon) {
+var getWeatherData = function (issLat, issLon, city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + issLat + "&lon=" + issLon + "&units=imperial&appid=386d421121bbbad42dc1ad82319e7fc0";
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
+<<<<<<< HEAD
                  // console.log(data);
+=======
+                var hourlyClouds = data.hourly[0].clouds
+                var hourlyCloudsEl = document.createElement("p");
+                hourlyCloudsEl.textContent = "cloud coverage:" + hourlyClouds;
+                hourlyWeatherEl.appendChild(hourlyCloudsEl)
+                // console.log(data);
+>>>>>>> d4abbdd864f9ccd911bda59ba95d4b2954060a72
                 //console.log(data.daily[0].clouds, "Clouds");
                 //console.log(data.daily[0].rain, "Rain");
                 //console.log(data.daily[0].weather[0].description, "Description");
                 //console.log(data.hourly[0]);
+
+
             });
         }
     });
@@ -72,11 +84,18 @@ var getCity = function (city) {
                 newLon = data[0].lon;
                 getISS(newLat, newLon);
                 getWeatherData(newLat, newLon);
-                spacePic();
+
             })
         }
     })
 };
+
+// // display hourly weather 
+// var hourlyWeather = function (data, city) {
+
+// }
+
+// hourlyWeather();
 
 // API call for ISS position
 var getISS = function (newLat, newLon) {
@@ -155,12 +174,12 @@ var saveCityIss = function () {
     pastCity.push(saveCity);
     localStorage.setItem("city", JSON.stringify(pastCity));
 
-var saveButton = document.createElement("button");
-saveButton.className = "button is-info is-outlined"
-saveButton.classList.add("save-btn");
-saveButton.textContent = saveCity
-cityHistoryEl.appendChild(saveButton);
-saveButton.onclick = clickButton
+    var saveButton = document.createElement("button");
+    saveButton.className = "button is-info is-outlined"
+    saveButton.classList.add("save-btn");
+    saveButton.textContent = saveCity
+    cityHistoryEl.appendChild(saveButton);
+    saveButton.onclick = clickButton
 };
 
 function clickButton(event) {

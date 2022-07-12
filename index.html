@@ -18,13 +18,13 @@
 
     </header>
 
-    <h2 class="container py-4 has text-primary has-text-centered has-text-white is-size-4 has-text-weight-bold">Can you see the
+    <h2 class="container block has-text-info has-text-centered has-text-white is-size-4 has-text-weight-bold">Can you see the
         International Space Station from your location?</h2>
 
 
 
-    <div class="columns is-hcentered has-text-white">
-        <div class="column is-two-thirds py-8">
+    <div class="columns block is-centered has-text-white">
+        <div class="column is-two-thirds">
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum consectetur, vero ullam, minima
                 cupiditate
@@ -33,16 +33,17 @@
                 amet fuga?
             </p>
         </div>
-        <div class="column py-4 has-text-white">
-            <form class="city-search" id="city-search">
-                Enter your zip code to find out Find the ISS and check your local weather!
-                <input class="city-name input is-small is-rounded is-info" id="city-name" type="text" placeholder="Enter City Name">
-                <button class="button is-info is-outlined" type="city-submit">Submit</button>
-            </form>
-        </div>
-
     </div>
-    <div class ="city-history has-text-white">
+
+    <div class="columns is-centered has-text-white">
+        <form class="city-search" id="city-search">
+            <p>Enter your city to check the location of the ISS and see your local weather!</p>
+            <input class="city-name input is-small is-rounded is-info" id="city-name" type="text" placeholder="Enter City Name">
+            <button class="button is-info is-outlined" type="city-submit">Submit</button>
+        </form>
+    </div>
+
+    <div class ="city-history has-text-white has-text-weight-bold pt-6">
         <h2>City Search History</h2>
     </div>
     
@@ -51,6 +52,11 @@
 
     </div>
 
+    <div class="hourly-weather">
+
+
+
+    </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
