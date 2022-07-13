@@ -11,6 +11,7 @@ For this project, our group wanted to create a website that would allow stargaze
 *Bulma
 
 ## Screen Shot
+![Screen Shot 2022-07-13 at 4 54 30 PM](https://user-images.githubusercontent.com/104512547/178843342-7157128a-a3c2-47d4-b3a4-a4b8ddbb8c10.png)
 
 ## Website
 https://sub-gh.github.io/group-4/
@@ -20,6 +21,5 @@ Aaron
 Camille
 Susan
 Ryan
-Autumn
 
 ### ©️2022
