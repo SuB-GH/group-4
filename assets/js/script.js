@@ -9,6 +9,8 @@ var issInfoEl = document.querySelector(".iss-info");
 var cityNameHistory = [];
 var cityName;
 var issTimeArray = [];
+var currentDate;
+var dailyWeather;
 
 //get daily space pic
 var spacePic = function () {
@@ -78,21 +80,22 @@ var getWeatherData = function (issLat, issLon, city) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
+                console.log(data)
                 console.log(data.hourly);
 
-                // for loop to get dt unix time:
-                for (var i = 0; i < data.hourly.length; i++) {
-                    var weatherHourlyUnixTime = data.hourly[i].dt;
+                // // for loop to get dt unix time:
+                // for (var i = 0; i < data.hourly.length; i++) {
+                //     var weatherHourlyUnixTime = data.hourly[i].dt;
 
-                // grab hours:
-                var weatherHour = moment.unix(weatherHourlyUnixTime).hour();
-                console.log(weatherHour);
+                //     // grab hours:
+                //     var weatherHour = moment.unix(weatherHourlyUnixTime).hour();
+                //     console.log(weatherHour);
 
-                // grab dates:
-                var weatherDate = moment.unix(weatherHourlyUnixTime).date();
-                console.log(weatherDate);
-                }
-
+                //     // grab dates:
+                //     var weatherDate = moment.unix(weatherHourlyUnixTime).date();
+                //     console.log(weatherDate);
+                // }
+dailyWeather= data.daily
                 //current city
                 var currentCityName = document.createElement("h3")
                 currentCityName.textContent = city;
@@ -149,7 +152,7 @@ var getISS = function (newLat, newLon) {
     //                 // console.log(passStartNOAA);
     //                 datePassStartNOAA = passStartNOAA.split("T");
     //                 console.log(datePassStartNOAA, "Date", "Time");
-                    
+
     //                 var satelliteData = datePassStartNOAA;
     //                 var satelliteDataEl = document.createElement("h2");
     //                 satelliteDataEl.textContent = "Date: " + satelliteData[0] + " Time: " + satelliteData[1].slice(0, 5);
@@ -167,35 +170,46 @@ var getISS = function (newLat, newLon) {
     fetch(issRequestUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data.satellite_name);
                 issLat = data.latitude;
                 issLon = data.longitude;
-                for (var i = 0; i < data.passes.length; i++) {
-                    // console.log(data.passes[i]);
-                    passStartISS = data.passes[i].start;
-
-                    // formats ISS hour
-                    var issHourFormat = moment().format(passStartISS);
-                    console.log(issHourFormat);
-
-                    // grab ISS hour
-                    var issHour = moment(issHourFormat).hour();
-                    console.log(issHour);
-
-                    // grab ISS date
-                    var issDate = moment(passStartISS).date();
-                    console.log(issDate);
-
-                    issTimeArray.push(passStartISS);
-                    // console.log(passStartISS);
-                    datePassStartISS = passStartISS.split("T");
-                    console.log(datePassStartISS, "Date", "Time");
-
-                    var issData = datePassStartISS;
-                    var issDataEl = document.createElement("h2");
-                    issDataEl.textContent = "Date: " + issData[0] + " Time: " + issData[1].slice(0, 5);
-                    issInfoEl.appendChild(issDataEl);
+                for (var i= 0; i<data.passes.length; i++){
+                 passStartISS = data.passes[i].start;
+            //     var issHourFormat = moment().format(passStartIss)
+            //     var issHour = moment(issHourFormat).hour();
+            //     var issDate = new Date(issHourFormat);
+            //    var issDay = issDate.getDate()
+                var datePassStartISS = passStartISS.split("T");
+                var issData = datePassStartISS;
+                var issDataEl = document.createElement("h2");
+                issDataEl.textContent = "Date: " + issData[0] + " Time: " + issData[1].slice(0, 5);
+                issInfoEl.appendChild(issDataEl);
                 }
+                //     //for (var i = 0; i < data.passes.length; i++) {
+                //         // console.log(data.passes[i]);
+                //         passStartISS = data.passes[i].start;
+
+                //         // formats ISS hour
+                //         var issHourFormat = moment().format(passStartISS);
+                //         console.log(issHourFormat);
+
+                //         // grab ISS hour
+                //         var issHour = moment(issHourFormat).hour();
+                //         console.log(issHour);
+
+                //         // grab ISS date
+                //         var issDate = moment(passStartISS).date();
+                //         console.log(issDate);
+
+                //         issTimeArray.push(passStartISS);
+                //         // console.log(passStartISS);
+                //         datePassStartISS = passStartISS.split("T");
+                //         console.log(datePassStartISS, "Date", "Time");
+
+                //         var issData = datePassStartISS;
+                //         var issDataEl = document.createElement("h2");
+                //         issDataEl.textContent = "Date: " + issData[0] + " Time: " + issData[1].slice(0, 5);
+                //         issInfoEl.appendChild(issDataEl);
+                //    // }
                 // call getweather?
             })
         }
@@ -212,16 +226,13 @@ var formSubmitHandler = function (event) {
     var cityName = cityNameEl.value.trim();
     // cityNameHistory.push(cityName);
     if (cityName) {
-hourlyWeatherEl.innerHTML ="";
-issInfoEl.innerHTML = "";
+        hourlyWeatherEl.innerHTML = "";
+        issInfoEl.innerHTML = "";
         // call getCity function
         getCity(cityName);
         saveCityIss();
 
         cityNameEl.value = "";
-    }
-    else{
-        alert("please enter a city name")
     }
 };
 
@@ -243,7 +254,7 @@ var saveCityIss = function () {
     saveButton.onclick = clickButton
 };
 
-var saveIss = function(){
+var saveIss = function () {
 
 }
 
