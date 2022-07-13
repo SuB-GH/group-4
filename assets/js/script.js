@@ -25,7 +25,7 @@ var spacePic = function () {
 var displaySpacePic = function (data) {
     //Pic Title
     var spacePicTitle = document.createElement("h3");
-    spacePicTitle.className = "has-text-weight-bold"
+    spacePicTitle.className = "has-text-weight-bold pic-title"
     var picTitle = data.title;
     spacePicTitle.textContent = picTitle;
     spacePicEl.appendChild(spacePicTitle);
