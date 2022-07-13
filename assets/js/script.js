@@ -234,6 +234,9 @@ var formSubmitHandler = function (event) {
 
         cityNameEl.value = "";
     }
+    else{
+        alert("Please enter a city name!")
+    }
 };
 
 var saveCityIss = function () {
