@@ -7,7 +7,7 @@ var hourlyWeatherEl = document.querySelector(".hourly-weather");
 // var satelliteInfoEl = document.querySelector(".noaa15-info");
 var issInfoEl = document.querySelector(".iss-info");
 var cityNameHistory = [];
-var cityName
+var cityName;
 
 //get daily space pic
 var spacePic = function () {
@@ -15,7 +15,7 @@ var spacePic = function () {
     fetch(apodApi).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data)
+                //console.log(data)
                 displaySpacePic(data);
             });
         }
@@ -46,12 +46,39 @@ var displaySpacePic = function (data) {
 };
 spacePic();
 
+// find Lat / Lon from city input
+var getCity = function (city) {
+    // insert API url
+    var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=386d421121bbbad42dc1ad82319e7fc0";
+    // console.log("testing");
+    fetch(requestUrl).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                //console.log(data);
+
+                // Lat & Lon variables:
+                newLat = data[0].lat;
+                newLon = data[0].lon;
+                getISS(newLat, newLon);
+                getWeatherData(newLat, newLon, city);
+
+            })
+        }
+    })
+};
+
+
 //get the weather for a city
 var getWeatherData = function (issLat, issLon, city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + issLat + "&lon=" + issLon + "&units=imperial&appid=386d421121bbbad42dc1ad82319e7fc0";
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
+                console.log(data)
+                //current city
+                var currentCityName = document.createElement("h3")
+                currentCityName.textContent = city;
+                hourlyWeatherEl.appendChild(currentCityName);
                 //Icon
                 var hourlyIconEl = document.createElement("img");
                 var hourlyIcon = data.hourly[0].weather[0].icon;
@@ -77,11 +104,7 @@ var getWeatherData = function (issLat, issLon, city) {
                 var hourlyVisibilityEl = document.createElement("p");
                 hourlyVisibilityEl.textContent = "Visibility: " + hourlyVisibility + " Meters";
                 hourlyWeatherEl.appendChild(hourlyVisibilityEl);
-                console.log(data);
-                //console.log(data.daily[0].clouds, "Clouds");
-                //console.log(data.daily[0].rain, "Rain");
-                //console.log(data.daily[0].weather[0].description, "Description");
-                //console.log(data.hourly[0]);
+
 
 
             });
@@ -89,33 +112,7 @@ var getWeatherData = function (issLat, issLon, city) {
     });
 
 };
-// find Lat / Lon from city input
-var getCity = function (city) {
-    // insert API url
-    var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=386d421121bbbad42dc1ad82319e7fc0";
-    // console.log("testing");
-    fetch(requestUrl).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                //console.log(data);
 
-                // Lat & Lon variables:
-                newLat = data[0].lat;
-                newLon = data[0].lon;
-                getISS(newLat, newLon);
-                getWeatherData(newLat, newLon);
-
-            })
-        }
-    })
-};
-
-// // display hourly weather 
-// var hourlyWeather = function (data, city) {
-
-// }
-
-// hourlyWeather();
 
 // API call for ISS position
 var getISS = function (newLat, newLon) {
@@ -177,8 +174,6 @@ var getISS = function (newLat, newLon) {
 };
 
 
-
-// getWeatherData();
 // Form submission
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -187,13 +182,16 @@ var formSubmitHandler = function (event) {
     var cityName = cityNameEl.value.trim();
     // cityNameHistory.push(cityName);
     if (cityName) {
-
-
+hourlyWeatherEl.innerHTML ="";
+issInfoEl.innerHTML = "";
         // call getCity function
         getCity(cityName);
         saveCityIss();
 
         cityNameEl.value = "";
+    }
+    else{
+        alert("please enter a city name")
     }
 };
 
@@ -215,11 +213,16 @@ var saveCityIss = function () {
     saveButton.onclick = clickButton
 };
 
+var saveIss = function(){
+
+}
+
 function clickButton(event) {
     event.preventDefault;
     var cityClicked = event.target
-    //currentCity.textContent = ""
-    getCityLocation(cityClicked.textContent);
+    hourlyWeatherEl.textContent = ""
+    issInfoEl.textContent = ""
+    getCity(cityClicked.textContent);
 };
 // Event listener
 citySearchEl.addEventListener("submit", formSubmitHandler);
