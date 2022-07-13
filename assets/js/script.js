@@ -206,7 +206,7 @@ var saveCityIss = function () {
     localStorage.setItem("city", JSON.stringify(pastCity));
 
     var saveButton = document.createElement("button");
-    saveButton.className = "button is-info is-outlined"
+    saveButton.className = "button is-info is-outlined mx-1"
     saveButton.classList.add("save-btn");
     saveButton.textContent = saveCity
     cityHistoryEl.appendChild(saveButton);
