@@ -8,6 +8,7 @@ var hourlyWeatherEl = document.querySelector(".hourly-weather");
 var issInfoEl = document.querySelector(".iss-info");
 var cityNameHistory = [];
 var cityName;
+var issTimeArray = [];
 
 //get daily space pic
 var spacePic = function () {
@@ -21,6 +22,11 @@ var spacePic = function () {
         }
     });
 };
+// var hour = moment.unix("1657681200").hour();
+// console.log(hour);
+
+// var issHour = moment().format("2022-07-13T09:08:13.440Z");
+// console.log(moment(issHour).hour());
 
 var displaySpacePic = function (data) {
     //Pic Title
@@ -61,12 +67,10 @@ var getCity = function (city) {
                 newLon = data[0].lon;
                 getISS(newLat, newLon);
                 getWeatherData(newLat, newLon, city);
-
             })
         }
     })
 };
-
 
 //get the weather for a city
 var getWeatherData = function (issLat, issLon, city) {
@@ -74,7 +78,21 @@ var getWeatherData = function (issLat, issLon, city) {
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data)
+                console.log(data.hourly);
+
+                // for loop to get dt unix time:
+                for (var i = 0; i < data.hourly.length; i++) {
+                    var weatherHourlyUnixTime = data.hourly[i].dt;
+
+                // grab hours:
+                var weatherHour = moment.unix(weatherHourlyUnixTime).hour();
+                console.log(weatherHour);
+
+                // grab dates:
+                var weatherDate = moment.unix(weatherHourlyUnixTime).date();
+                console.log(weatherDate);
+                }
+
                 //current city
                 var currentCityName = document.createElement("h3")
                 currentCityName.textContent = city;
@@ -104,15 +122,11 @@ var getWeatherData = function (issLat, issLon, city) {
                 var hourlyVisibilityEl = document.createElement("p");
                 hourlyVisibilityEl.textContent = "Visibility: " + hourlyVisibility + " Meters";
                 hourlyWeatherEl.appendChild(hourlyVisibilityEl);
-
-
-
             });
         }
     });
 
 };
-
 
 // API call for ISS position
 var getISS = function (newLat, newLon) {
@@ -159,6 +173,20 @@ var getISS = function (newLat, newLon) {
                 for (var i = 0; i < data.passes.length; i++) {
                     // console.log(data.passes[i]);
                     passStartISS = data.passes[i].start;
+
+                    // formats ISS hour
+                    var issHourFormat = moment().format(passStartISS);
+                    console.log(issHourFormat);
+
+                    // grab ISS hour
+                    var issHour = moment(issHourFormat).hour();
+                    console.log(issHour);
+
+                    // grab ISS date
+                    var issDate = moment(passStartISS).date();
+                    console.log(issDate);
+
+                    issTimeArray.push(passStartISS);
                     // console.log(passStartISS);
                     datePassStartISS = passStartISS.split("T");
                     console.log(datePassStartISS, "Date", "Time");
@@ -168,9 +196,11 @@ var getISS = function (newLat, newLon) {
                     issDataEl.textContent = "Date: " + issData[0] + " Time: " + issData[1].slice(0, 5);
                     issInfoEl.appendChild(issDataEl);
                 }
+                // call getweather?
             })
         }
     })
+    // return issTimeArray?
 };
 
 
